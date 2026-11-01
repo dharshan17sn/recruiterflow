@@ -4,6 +4,9 @@ import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
+const rawApiKey = process.env.REQRES_API_KEY ?? '';
+const apiKey = rawApiKey.replace(/^['"]|['"]$/g, '').trim();
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
@@ -18,9 +21,23 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testDir: './tests/ui',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://www.saucedemo.com',
+      },
+    },
+    {
+      name: 'api',
+      testDir: './tests/api',
+      use: {
+        baseURL: 'https://reqres.in',
+        extraHTTPHeaders: {
+          'x-api-key': apiKey,
+          'User-Agent': 'reqres-qa-tests/1.0',
+          'Content-Type': 'application/json',
+          'X-Reqres-Env': 'prod',
+        },
       },
     },
   ],

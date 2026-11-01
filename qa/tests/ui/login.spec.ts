@@ -38,3 +38,4 @@ test.describe('Login functionality', () => {
     await expect(loginPage.loginButton).toBeVisible();
   });
 });
+

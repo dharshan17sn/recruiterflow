@@ -29,3 +29,4 @@ test.describe('Cart functionality', () => {
     await expect(productsPage.cartBadge).toHaveCount(0);
   });
 });
+

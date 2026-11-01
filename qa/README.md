@@ -28,7 +28,8 @@ npx playwright test
   - **Bonus**: Removing product clears cart badge (`toHaveCount(0)`).
   - **Bonus**: Sidebar logout navigates to login page.
 - **API Tests (`tests/api`)**:
-  - `GET /api/users/2` returns 200 with non-empty email.
-  - `POST /api/users` returns 201 with created user details.
-  - **Bonus**: `GET /api/users/23` returns 404 for missing user.
-  - Strict validation of `x-api-key` header from environment.
+  - `GET /api/users/2` (200 with non-empty email).
+  - `POST /api/users` (201 with matching name).
+  - **Bonus**: `GET /api/users/23` (404 for missing user).
+  - Headers (`x-api-key`, `User-Agent: reqres-qa-tests/1.0`, `X-Reqres-Env: prod`), trimmed key validation, 429 retry helper, and descriptive failure messages.
+- **Note on ReqRes 403**: Unregistered keys return 403 from ReqRes; tests strictly assert expected contracts and log response diagnostics.
