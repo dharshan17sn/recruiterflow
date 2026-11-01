@@ -72,3 +72,4 @@ CREATE INDEX IF NOT EXISTS idx_job_culture_job ON job_culture(job_id);
 CREATE INDEX IF NOT EXISTS idx_job_culture_trait ON job_culture(trait_id);
 CREATE INDEX IF NOT EXISTS idx_matches_job ON matches(job_id);
 CREATE INDEX IF NOT EXISTS idx_matches_candidate ON matches(candidate_id);
+

@@ -126,3 +126,4 @@ export function runDetective(): void {
 if (process.argv[1] && process.argv[1].endsWith('run_detective.ts')) {
   runDetective();
 }
+

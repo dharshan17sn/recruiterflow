@@ -180,3 +180,4 @@ SELECT
 FROM placements_by_recruiter
 WHERE rank_in_dept = 1
 ORDER BY department ASC;
+
