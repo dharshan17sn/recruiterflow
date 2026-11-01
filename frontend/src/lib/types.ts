@@ -36,3 +36,4 @@ export interface AppState {
   members: Member[];
   expenses: Expense[];
 }
+

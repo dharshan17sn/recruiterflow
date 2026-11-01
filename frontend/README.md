@@ -1,32 +1,48 @@
-# React + TypeScript + Vite
+# Recruiterflow Expense Splitter
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A pure TypeScript and React expense sharing application built with Vite, Redux Toolkit, and React Router.
 
-Currently, two official plugins are available:
+## Running the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+# Install dependencies
+npm install
 
-## React Compiler
+# Start development server
+npm run dev
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Run Vitest test suite
+npm run test
 
-## Expanding the Oxlint configuration
+# Run typechecking and linting
+npm run typecheck
+npm run lint
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+# Production build
+npm run build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+**Unfinished Items**: Editing existing expenses, adding new custom group members, and a debt simplification graph for settled payments.
+
+## Extra-Paisa Rounding Rule
+
+Splits use the largest-remainder method to ensure shares sum exactly to the expense amount:
+- **Equal splits**: Base share is `floor(amount / n)`. Leftover paise (`amount % n`) are distributed one by one to the first members in the order of the members list.
+- **Percent splits**: Percentages are converted to integer basis points (`round(pct * 100)`). Base share is `floor(amount * bp / 10000)`. Leftover paise are allocated to participants with the largest fractional remainder (`raw % 10000`), breaking ties by member order.
+- **Exact splits**: Shares are allocated as specified.
+
+## Key Architectural Decisions
+
+1. **Storage subscription in store (`store.subscribe`)**: Persisting state inside `createStore` establishes a single source of truth for localStorage sync. UI components remain pure and oblivious to persistence details.
+2. **Local component state vs. Redux**: Transient input fields, draft split allocations, category filters, and flash notifications live in component or router state. Redux exclusively manages persistent domain entities (`members`, `expenses`).
+3. **Pure business logic in `src/lib/`**: Money parsing, balance computations, and validation rules reside in pure TypeScript modules without React dependencies. This guarantees deterministic behavior and clean unit testing.
+
+## Next Steps With Another Day
+
+- Implement a debt-simplification graph algorithm to suggest minimal settlement transactions.
+- Add receipt attachment uploads, expense editing, and member addition modals.
+- Replace browser `window.confirm` with accessible modal dialogs and ARIA live announcements.
+
+## AI Usage
+
+AI assistants were utilized to assist with initial project scaffolding, rapid drafting of repetitive unit test fixtures, and validating mathematical edge cases. I thoroughly reviewed and verified all implementations, and I can explain every architectural decision and line of code in this codebase.

@@ -91,3 +91,4 @@ describe('storage.ts', () => {
     expect(loaded).toEqual(customState);
   });
 });
+

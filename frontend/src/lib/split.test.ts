@@ -118,3 +118,4 @@ describe('split.ts', () => {
     expect(sum).toBe(10001);
   });
 });
+

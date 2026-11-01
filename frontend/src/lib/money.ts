@@ -69,3 +69,4 @@ export function formatINR(paise: number): string {
 
   return (isNegative ? '-₹' : '₹') + grouped + '.' + fracStr;
 }
+
