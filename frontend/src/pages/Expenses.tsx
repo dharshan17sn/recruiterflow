@@ -69,7 +69,7 @@ export function Expenses() {
     <div className="page-container">
       {flash && (
         <div role="status" className="flash-message">
-          {flash}
+          <span>{flash}</span>
           <button
             type="button"
             className="flash-close-btn"
@@ -82,7 +82,10 @@ export function Expenses() {
       )}
 
       <header className="page-header">
-        <h1>Expenses</h1>
+        <div>
+          <h1>Expenses</h1>
+          <p className="page-subtitle">Track shared expenses, splits, and member settlement balances.</p>
+        </div>
       </header>
 
       <section className="balances-section" aria-labelledby="balances-heading">
@@ -91,13 +94,16 @@ export function Expenses() {
           {members.map((m) => {
             const bal = balances[m.id] ?? 0;
             let statusText = `${m.name} settled up`;
+            let itemModifier = 'balance-settled';
             if (bal > 0) {
               statusText = `${m.name} gets back ${formatINR(bal)}`;
+              itemModifier = 'balance-positive';
             } else if (bal < 0) {
               statusText = `${m.name} owes ${formatINR(-bal)}`;
+              itemModifier = 'balance-negative';
             }
             return (
-              <li key={m.id} className="balance-item">
+              <li key={m.id} className={`balance-item ${itemModifier}`}>
                 {statusText}
               </li>
             );
@@ -157,7 +163,9 @@ export function Expenses() {
                     <td>{expense.date}</td>
                     <td>{expense.description}</td>
                     <td>
-                      <span className="category-badge">{expense.category}</span>
+                      <span className={`category-badge category-${expense.category.toLowerCase()}`}>
+                        {expense.category}
+                      </span>
                     </td>
                     <td>{memberMap.get(expense.paidBy) ?? expense.paidBy}</td>
                     <td>{formatINR(expense.amount)}</td>

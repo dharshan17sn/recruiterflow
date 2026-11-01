@@ -231,8 +231,13 @@ export function AddExpense() {
   };
 
   return (
-    <div className="page-container">
-      <h1>Add expense</h1>
+    <div className="page-container expense-form-container">
+      <header className="page-header">
+        <div>
+          <h1>Add expense</h1>
+          <p className="page-subtitle">Record a new group expenditure and choose the split method.</p>
+        </div>
+      </header>
       <form onSubmit={handleSubmit} noValidate className="expense-form">
         <div className="form-group">
           <label htmlFor={descId}>Description</label>

@@ -5,6 +5,7 @@ export function Navbar() {
     <header className="navbar-container">
       <nav aria-label="Main Navigation" className="navbar">
         <div className="navbar-brand">
+          <div className="brand-badge" aria-hidden="true">RF</div>
           <span className="brand-title">Recruiterflow Expense Splitter</span>
         </div>
         <div className="navbar-links">
